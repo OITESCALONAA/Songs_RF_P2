@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Songs RF P2</string>
+
+    <!-- SongsListFragment -->
+    <string name="connection_error">Connection error</string>
+
+    <!-- SongsListFragment y SongDetailFragment -->
+    <string name="game_click">Click en el juego %1$s</string>
+
+    <!-- fragment_songs_list.xml y fragment_song_detail -->
+    <string name="title">Title</string>
+    <string name="artist">Artist</string>
+    <string name="album">Album</string>
+    <string name="genre">Genre</string>
+    <string name="release_date">Release Date</string>
+    <string name="record_label">Record Label</string>
+</resources>
