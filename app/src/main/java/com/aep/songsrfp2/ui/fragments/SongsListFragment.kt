@@ -1,5 +1,6 @@
 package com.aep.songsrfp2.ui.fragments
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -22,6 +23,8 @@ class SongsListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var repository: SongRepository
+
+    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,17 +58,28 @@ class SongsListFragment : Fragment() {
                             context.getString(R.string.game_click, selectedSong.title))
                         //Pasamos al siguiente fragment con el id del juego seleccionado
                         selectedSong.id?.let{ id ->
-                            requireActivity().supportFragmentManager.beginTransaction()
-                                .replace(
-                                    R.id.fragment_container,
-                                    SongDetailFragment.newInstance(id)
-                                )
-                                .addToBackStack(null)
-                                .commit()
+                            //Cargamos el contenido en memoria
+                            mediaPlayer = MediaPlayer.create(this@SongsListFragment.requireContext(), R.raw.song_selected)
+
+                            mediaPlayer.setOnCompletionListener {
+                                //Liberar recursos
+                                mediaPlayer.release()
+
+                                //ir a la vista del detalle
+                                requireActivity().supportFragmentManager.beginTransaction()
+                                    .replace(
+                                        R.id.fragment_container,
+                                        SongDetailFragment.newInstance(id)
+                                    )
+                                    .addToBackStack(null)
+                                    .commit()
+                            }
+
+                            //Le damos play al efecto de sonido
+                            mediaPlayer.start()
                         }
                     }
                 }
-
             } catch (e: Exception) {
                 //Manejamos la excepción
                 e.printStackTrace()
@@ -83,6 +97,9 @@ class SongsListFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        if (::mediaPlayer.isInitialized) {
+            mediaPlayer.release()
+        }
         _binding = null
     }
 }

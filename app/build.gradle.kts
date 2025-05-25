@@ -66,6 +66,9 @@ dependencies {
     //Splash Screen Api
     implementation(libs.androidx.core.splashscreen)
 
+    //Biblioteca para videos en YouTube
+    implementation(libs.core)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

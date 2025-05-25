@@ -1,8 +1,10 @@
 package com.aep.songsrfp2.ui.fragments
 
 import android.graphics.text.LineBreaker
+import android.net.Uri
 import android.os.Build.VERSION_CODES.Q
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,8 +17,11 @@ import com.aep.songsrfp2.Utils.isAtLeastAndroid
 import com.aep.songsrfp2.application.SongsRFApp
 import com.aep.songsrfp2.data.SongRepository
 import com.aep.songsrfp2.databinding.FragmentSongDetailBinding
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
+import androidx.core.net.toUri
 
 class SongDetailFragment : Fragment() {
     private var _binding: FragmentSongDetailBinding? = null
@@ -72,6 +77,22 @@ class SongDetailFragment : Fragment() {
                         tvReleaseDate.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
                         tvRecordLabel.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
                     }
+
+                    binding.ytpvVideo.addYouTubePlayerListener(object: AbstractYouTubePlayerListener(){
+                        override fun onReady(youTubePlayer: YouTubePlayer) {
+                            val uri = songDetail.video?.toUri()
+                            val videoId = uri?.getQueryParameter("v")
+                            if (!videoId.isNullOrEmpty()) {
+                                youTubePlayer.loadVideo(videoId, 0f)
+                            } else {
+                                Log.e(Constants.LOGTAG, getString(R.string.invalid_video_url, songDetail.title))
+                                Toast.makeText(requireContext(), getString(R.string.invalid_video_url, songDetail.title), Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    })
+
+                    //Para que el reproductor se enganche al ciclo de vida
+                    lifecycle.addObserver(binding.ytpvVideo)
                 }
             }catch (e: Exception){
                 //Manejamos la excepción
@@ -90,6 +111,7 @@ class SongDetailFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        binding.ytpvVideo.release()
         _binding = null
     }
 

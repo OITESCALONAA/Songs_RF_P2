@@ -5,7 +5,8 @@
     <string name="connection_error">Connection error</string>
 
     <!-- SongsListFragment y SongDetailFragment -->
-    <string name="game_click">Click en el juego %1$s</string>
+    <string name="game_click">Click on song %1$s</string>
+    <string name="invalid_video_url">Invalid video id for song %1$s</string>
 
     <!-- fragment_songs_list.xml y fragment_song_detail -->
     <string name="title">Title</string>

@@ -18,5 +18,7 @@ data class SongDto(
     @SerializedName("record_label")
     var recordLabel: String? = null,
     @SerializedName("image")
-    var image: String? = null
+    var image: String? = null,
+    @SerializedName("video")
+    var video: String? = null
 )
