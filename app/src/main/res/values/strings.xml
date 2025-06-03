@@ -15,4 +15,50 @@
     <string name="genre">Genre</string>
     <string name="release_date">Release Date</string>
     <string name="record_label">Record Label</string>
+
+    <!-- fragment_song_detail -->
+    <string name="marker_option_title">Record Label</string>
+    <string name="marker_option_location">Location</string>
+
+    <!-- fragment_login-xml -->
+    <string name="login_title">Songs</string>
+    <string name="login_subtitle">Práctica final</string>
+    <string name="login_field_email">Email</string>
+    <string name="login_field_password">Password</string>
+    <string name="login_button_login">Login</string>
+    <string name="login_button_register">Register</string>
+    <string name="login_link_restore">Forgot your password? Restore it here</string>
+    <string name="login_trademark">© Songs PF Alexis Escalona</string>
+
+    <!-- LoginFragment -->
+    <string name="email_required">The email is required</string>
+    <string name="email_format_not_valid">Email doesn\'t have a valid format</string>
+    <string name="password_required">The password is required</string>
+    <string name="password_min_length">The password must have at least 6 characters</string>
+    <string name="error_invalid_email">ERROR_INVALID_EMAIL</string>
+    <string name="error_wrong_password">ERROR_WRONG_PASSWORD</string>
+    <string name="error_account_exists_with_different_credential">ERROR_ACCOUNT_EXISTS_WITH_DIFFERENT_CREDENTIAL</string>
+    <string name="error_email_already_in_use">ERROR_EMAIL_ALREADY_IN_USE</string>
+    <string name="error_user_token_expired">ERROR_USER_TOKEN_EXPIRED</string>
+    <string name="error_user_not_found">ERROR_USER_NOT_FOUND</string>
+    <string name="error_weak_password">ERROR_WEAK_PASSWORD</string>
+    <string name="no_network">NO_NETWORK</string>
+    <string name="error_email_format">Error: The email doesn\'t have a valid format</string>
+    <string name="error_password_not_valid">Error: The password is not valid</string>
+    <string name="error_different_signin_credentials">Error: The account exists, but with access data</string>
+    <string name="error_email_already_registered">Error: The email is already used with another account</string>
+    <string name="error_session_expired">Error: Session expired. Please login again.</string>
+    <string name="error_user_not_exists">Error: The user doesn\'t existe with the given information</string>
+    <string name="error_no_network">Network not available or connection interrupted</string>
+    <string name="error_authentication_unsuccessful">Error: Authentication unsuccessful</string>
+    <string name="authentication_successful">Authentication successful</string>
+    <string name="verification_email_sent">The verification email was sent</string>
+    <string name="verification_email_not_sent">The verification email was not sent</string>
+    <string name="user_created_successfully">User created successfully</string>
+    <string name="restore_password">Restore password</string>
+    <string name="restore_message">Enter your email to receive the restoration link</string>
+    <string name="restore_ok_button">Send</string>
+    <string name="restore_cancel_button">Cancel</string>
+    <string name="restoration_email_sent">The link for restoring the password was sent</string>
+    <string name="restoration_email_not_sent">The link for restoring the password was not sent</string>
 </resources>

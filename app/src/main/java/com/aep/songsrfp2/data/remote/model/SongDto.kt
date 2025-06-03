@@ -20,5 +20,9 @@ data class SongDto(
     @SerializedName("image")
     var image: String? = null,
     @SerializedName("video")
-    var video: String? = null
+    var video: String? = null,
+    @SerializedName("lat")
+    var lat: Double? = null,
+    @SerializedName("lng")
+    var lng: Double? = null
 )

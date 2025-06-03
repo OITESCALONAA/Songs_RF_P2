@@ -1,7 +1,6 @@
 package com.aep.songsrfp2.ui.fragments
 
 import android.graphics.text.LineBreaker
-import android.net.Uri
 import android.os.Build.VERSION_CODES.Q
 import android.os.Bundle
 import android.util.Log
@@ -22,14 +21,26 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import androidx.core.net.toUri
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
-class SongDetailFragment : Fragment() {
+class SongDetailFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentSongDetailBinding? = null
     private val binding get() = _binding!!
 
     private var songId: String? = null
 
     private lateinit var repository: SongRepository
+
+    //Para GoogleMaps
+    private lateinit var googleMap: GoogleMap
+    private var lat: Double? = null
+    private var lng: Double? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,6 +102,11 @@ class SongDetailFragment : Fragment() {
                         }
                     })
 
+                    lat = songDetail.lat
+                    lng = songDetail.lng
+                    val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+                    mapFragment.getMapAsync(this@SongDetailFragment)
+
                     //Para que el reproductor se enganche al ciclo de vida
                     lifecycle.addObserver(binding.ytpvVideo)
                 }
@@ -124,5 +140,31 @@ class SongDetailFragment : Fragment() {
                     putString(Constants.SONG_ID, id)
                 }
             }
+    }
+
+    override fun onMapReady(map: GoogleMap) {
+        googleMap = map
+        createMarker()
+    }
+
+    private fun createMarker(){
+        lat?.let { lat ->
+            lng?.let { lng ->
+                val coordinates = LatLng(lat, lng)
+
+                //Generamos un marcador personalizado
+                val marker = MarkerOptions()
+                    .position(coordinates)
+                    .title(getString(R.string.marker_option_title))
+                    .snippet(getString(R.string.marker_option_location))
+
+                googleMap.addMarker(marker)
+                googleMap.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(coordinates, 15f),
+                    4_000,
+                    null
+                )
+            }
+        }
     }
 }
